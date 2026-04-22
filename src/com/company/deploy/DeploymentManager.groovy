@@ -8,38 +8,33 @@ class DeploymentManager implements Serializable {
         this.steps = steps
     }
 
-    // ✅ Validation Method
     def validate(String env) {
         steps.echo "Validating deployment for ${env}..."
 
         if (!(env in ['dev', 'staging', 'prod'])) {
-            steps.error "Invalid environment: ${env}"
+            steps.error("Invalid environment: ${env}")
         }
 
         steps.echo "Validation successful for ${env}"
     }
 
-    // 🚀 Deployment Method
     def deploy(String env) {
         steps.echo "Deploying application to ${env}..."
 
         if (env == 'dev') {
-            steps.sh "echo Deploying to DEV server"
+            steps.sh "echo Deploying DEV environment"
         } else if (env == 'staging') {
-            steps.sh "echo Deploying to STAGING server"
+            steps.sh "echo Deploying STAGING environment"
         } else if (env == 'prod') {
-            steps.sh "echo Deploying to PRODUCTION server"
+            steps.sh "echo Deploying PRODUCTION environment"
         }
 
         steps.echo "Deployment completed for ${env}"
     }
 
-    // 🔄 Rollback Method
     def rollback(String env) {
-        steps.echo "Rolling back deployment for ${env}..."
-
-        steps.sh "echo Rolling back ${env} deployment"
-
+        steps.echo "Rolling back deployment in ${env}..."
+        steps.sh "echo Rolling back ${env}"
         steps.echo "Rollback completed for ${env}"
     }
 }
